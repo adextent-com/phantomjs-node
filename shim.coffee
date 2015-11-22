@@ -74,14 +74,39 @@ pageWrap = (page) -> mkwrap page,
   onPageCreated:(cb=(->))->
     page.onPageCreated = (newpage) ->
       cb pageWrap newpage
-  onConsoleMessage: (fn, cb=(->)) ->
+  onConsoleMessage: (cb=(->)) ->
     page.onConsoleMessage = ->
-      fn.apply(this, arguments)
-    cb()
-  onError: (fn, cb=(->)) ->
+      cb.apply(this, arguments)
+  onError: (cb=(->)) ->
     page.onError = ->
-      fn.apply(this, arguments)
-    cb()
+      cb.apply(this, arguments)
+  onCallback: (cb=(->)) ->
+    page.onCallback = ->
+      cb.apply(this, arguments)
+  onResourceReceived: (fn, cb=(->), args...) ->
+    page.onResourceReceived = ->
+    # prepare a arguments with the extra args
+      argumentsWithExtraArgs = [].slice.apply(arguments).concat(args)
+      # give a name to the anonymouse function so that we can call it
+      fn = fn.replace /function.*\(/, 'function x('
+      # the only way we can access the request object is by passing a function to this point as a string and expanding it
+      eval(fn) # :(
+      # this function has access to request.abort()
+      x.apply(this, argumentsWithExtraArgs)
+      # this function does not have access to request.abort()
+      cb.apply(this, argumentsWithExtraArgs)
+  onResourceError: (fn, cb=(->), args...) ->
+    page.onResourceError = ->
+      # prepare a arguments with the extra args
+      argumentsWithExtraArgs = [].slice.apply(arguments).concat(args)
+      # give a name to the anonymouse function so that we can call it
+      fn = fn.replace /function.*\(/, 'function x('
+      # the only way we can access the request object is by passing a function to this point as a string and expanding it
+      eval(fn) # :(
+      # this function has access to request.abort()
+      x.apply(this, argumentsWithExtraArgs)
+      # this function does not have access to request.abort()
+      cb.apply(this, argumentsWithExtraArgs)
   onResourceRequested: (fn, cb=(->), args...) ->
     page.onResourceRequested = ->
       # prepare a arguments with the extra args

@@ -42,6 +42,21 @@ wrap = (ph) ->
       page._onResourceRequested = page.onResourceRequested
       # can apply extra args which will be passed to phantomjs onResourceRequested scope
       page.onResourceRequested = (fn, cb, args...) -> page._onResourceRequested.apply(page, [fn.toString(), cb].concat(args))
+
+      page._onResourceReceived = page.onResourceReceived
+      page.onResourceReceived = (fn, cb, args...) -> page._onResourceReceived.apply(page, [fn.toString(), cb].concat(args))
+
+      page._onResourceError = page.onResourceError
+      page.onResourceError = (fn, cb, args...) -> page._onResourceError.apply(page, [fn.toString(), cb].concat(args))
+
+      page._onConosleMessage = page.onConosleMessage
+      page.onConosleMessage = (cb) -> page._onConosleMessage.apply(page, [cb])
+
+      page._onError = page.onError
+      page.onError = (cb) -> page._onError.apply(page, [cb])
+
+      page._onCallback = page.onCallback
+      page.onCallback = (cb) -> page._onCallback.apply(page, [cb])
       cb page
 
 module.exports =

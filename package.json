@@ -1,17 +1,21 @@
 {
-  "author": "Sam Gentle <sam@samgentle.com>",
-  "name": "phantom",
+  "author": "Adextent",
+  "name": "adextent-phantom",
   "description": "PhantomJS wrapper for Node",
   "homepage": "https://github.com/sgentle/phantomjs-node",
-  "version": "0.8.4",
+  "version": "0.8.9",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sgentle/phantomjs-node.git"
+    "url": "git://github.com/adextent-com/phantomjs-node.git"
   },
   "contributors": [
     {
       "name": "Amir Raminfar",
       "email": "findamir@gmail.com"
+    },
+    {
+      "name": "Dror Givoli",
+      "email": "drorg@adextent.com"
     }
   ],
   "main": "phantom.js",
