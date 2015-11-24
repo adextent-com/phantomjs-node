@@ -13,7 +13,7 @@ If that works, so will phantomjs-node. It's only been tested with PhantomJS 1.3,
 
 Install it like this:
 
-    npm install phantom
+    npm install adextent-phantom
 
 
 For a brief introduction continue reading, otherwise **go to the [Wiki page](https://github.com/sgentle/phantomjs-node/wiki) for more information!**
@@ -24,7 +24,7 @@ For a brief introduction continue reading, otherwise **go to the [Wiki page](htt
 Use it like this in Coffeescript:
 
 ```coffeescript
-phantom = require 'phantom'
+phantom = require 'adextent-phantom'
 
 phantom.create (ph) ->
   ph.createPage (page) ->
@@ -38,7 +38,7 @@ phantom.create (ph) ->
 In Javascript:
 
 ```js
-var phantom = require('phantom');
+var phantom = require('adextent-phantom');
 
 phantom.create(function (ph) {
   ph.createPage(function (page) {

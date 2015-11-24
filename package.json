@@ -3,7 +3,7 @@
   "name": "adextent-phantom",
   "description": "PhantomJS wrapper for Node",
   "homepage": "https://github.com/sgentle/phantomjs-node",
-  "version": "0.8.9",
+  "version": "0.9.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/adextent-com/phantomjs-node.git"
