@@ -119,6 +119,13 @@ pageWrap = (page) -> mkwrap page,
       x.apply(this, argumentsWithExtraArgs)
       # this function does not have access to request.abort()
       cb.apply(this, argumentsWithExtraArgs)
+  onLoadFinished: (fn, cb=(->), args...) ->
+    page.onLoadFinished = ->
+      argumentsWithExtraArgs = [].slice.apply(arguments).concat(args)
+      fn = fn.replace /function.*\(/, 'function x('
+      eval(fn) # :(
+      x.apply(this, argumentsWithExtraArgs)
+      cb.apply(this, argumentsWithExtraArgs)
   injectJs: (js, cb=->) -> cb page.injectJs js
   evaluate: (fn, cb=(->), args...) -> cb page.evaluate.apply(page, [fn].concat(args))
   render: (file, opts={}, cb) ->

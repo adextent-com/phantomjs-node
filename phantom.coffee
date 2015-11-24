@@ -57,6 +57,10 @@ wrap = (ph) ->
 
       page._onCallback = page.onCallback
       page.onCallback = (cb) -> page._onCallback.apply(page, [cb])
+
+      page._onLoadFinished = page.onLoadFinished
+      page.onLoadFinished = (fn, cb, args...) -> page._onLoadFinished.apply(page, [fn.toString(), cb].concat(args))
+
       cb page
 
 module.exports =
