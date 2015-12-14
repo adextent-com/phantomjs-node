@@ -85,7 +85,7 @@ pageWrap = (page) -> mkwrap page,
       cb.apply(this, arguments)
   onResourceReceived: (fn, cb=(->), args...) ->
     page.onResourceReceived = ->
-    # prepare a arguments with the extra args
+      # prepare a arguments with the extra args
       argumentsWithExtraArgs = [].slice.apply(arguments).concat(args)
       # give a name to the anonymouse function so that we can call it
       fn = fn.replace /function.*\(/, 'function x('
@@ -94,6 +94,13 @@ pageWrap = (page) -> mkwrap page,
       # this function has access to request.abort()
       x.apply(this, argumentsWithExtraArgs)
       # this function does not have access to request.abort()
+      cb.apply(this, argumentsWithExtraArgs)
+  onResourceTimeout: (fn, cb=(->), args...) ->
+    page.onResourceTimeout = ->
+      argumentsWithExtraArgs = [].slice.apply(arguments).concat(args)
+      fn = fn.replace /function.*\(/, 'function x('
+      eval(fn) # :(
+      x.apply(this, argumentsWithExtraArgs)
       cb.apply(this, argumentsWithExtraArgs)
   onResourceError: (fn, cb=(->), args...) ->
     page.onResourceError = ->

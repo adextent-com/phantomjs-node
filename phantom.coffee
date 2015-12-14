@@ -46,6 +46,9 @@ wrap = (ph) ->
       page._onResourceReceived = page.onResourceReceived
       page.onResourceReceived = (fn, cb, args...) -> page._onResourceReceived.apply(page, [fn.toString(), cb].concat(args))
 
+      page._onResourceTimeout = page.onResourceTimeout
+      page.onResourceTimeout = (fn, cb, args...) -> page._onResourceTimeout.apply(page, [fn.toString(), cb].concat(args))
+
       page._onResourceError = page.onResourceError
       page.onResourceError = (fn, cb, args...) -> page._onResourceError.apply(page, [fn.toString(), cb].concat(args))
 
